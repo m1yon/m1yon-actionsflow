@@ -2,10 +2,44 @@ on:
   webhook:
     method: post
 jobs:
-  print:
-    name: Print
+  sync-with-notion:
+    name: Sync new Todoist task with Notion
     runs-on: ubuntu-latest
     steps:
+      - name: Send Todoist task to Notion
+        env:
+          NOTION_AUTH_TOKEN: ${{ secrets.NOTION_AUTH_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: |
+          curl --location --request POST 'https://api.notion.com/v1/pages' \
+            --header 'Notion-Version: 2021-08-16' \
+            --header 'Authorization: $NOTION_AUTH_TOKEN' \
+            --header 'Content-Type: application/json' \
+            --data-raw '{
+                "parent": {
+                    "database_id": "$NOTION_DATABASE_ID"
+                },
+                "properties": {
+                    "Name": {
+                        "title": [
+                            {
+                                "text": {
+                                    "content": "Tuscan Kale"
+                                }
+                            }
+                        ]
+                    },
+                    "Status": {
+                        "id": "3E6J",
+                        "type": "select",
+                        "select": {
+                            "id": "1",
+                            "name": "Haven'\''t Reported",
+                            "color": "red"
+                        }
+                    }
+                }
+            }'
       - name: Print Outputs
         env:
           outputs: ${{ toJSON(on.webhook.outputs) }}
