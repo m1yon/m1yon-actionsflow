@@ -1,6 +1,6 @@
 on:
-  rss:
-    url: https://hnrss.org/newest?points=300&count=3
+  webhook:
+    method: post
 jobs:
   print:
     name: Print
