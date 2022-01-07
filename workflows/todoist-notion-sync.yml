@@ -17,7 +17,7 @@ jobs:
             --header 'Content-Type: application/json' \
             --data-raw '{
                 "parent": {
-                    "database_id": ""$NOTION_DATABASE_ID""
+                    "database_id": "$NOTION_DATABASE_ID"
                 },
                 "properties": {
                     "Name": {
