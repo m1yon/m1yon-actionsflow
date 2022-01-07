@@ -40,8 +40,8 @@ jobs:
                     }
                 }
             }'
-      - name: Print Outputs
-        env:
-          outputs: ${{ toJSON(on.webhook.outputs) }}
-        run: |
-          echo outputs: $outputs
+      # - name: Print Outputs
+      #   env:
+      #     outputs: ${{ toJSON(on.webhook.outputs) }}
+      #   run: |
+      #     echo outputs: $outputs
